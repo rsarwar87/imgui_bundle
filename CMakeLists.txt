@@ -24,13 +24,10 @@ set(IMGUIBUNDLE_PATH ${CMAKE_CURRENT_SOURCE_DIR} CACHE STRING "" FORCE)
 # --------------------------------------------------
 # (OFF when building the cpp library; ON by default when using pip install.
 #  note: SKBUILD is set to on by pip install / setup.py)
-if(SKBUILD)
-    set(IMGUI_BUNDLE_BUILD_PYTHON ON)
-    set(IMGUI_BUNDLE_BUILD_CPP OFF)
-else()
+
     option(IMGUI_BUNDLE_BUILD_PYTHON "build python bindings" OFF)
     set(IMGUI_BUNDLE_BUILD_CPP ON)
-endif()
+
 
 
 # IMMVISION_FETCH_OPENCV: fetch OpenCV automatically during configure
@@ -56,13 +53,8 @@ option(IMGUI_BUNDLE_FAIL_IF_IMMVISION_UNAVAILABLE "Fail if immvision unavailable
 # IMGUI_BUNDLE_WITH_SDL: Add SDL backend
 # --------------------------------------
 # (HelloImgui is built by default with glfw backend. Sdl is also supported, and can be added via this option)
-if (NOT EMSCRIPTEN)
-    option(IMGUI_BUNDLE_WITH_SDL "Add SDL backend" OFF)
-    option(IMGUI_BUNDLE_WITH_GLFW "Add GLFW backend" ON)
-else()
+
     set(IMGUI_BUNDLE_WITH_SDL ON)
-    set(IMGUI_BUNDLE_WITH_GLFW OFF)
-endif()
 
 
 # IMGUI_BUNDLE_BUILD_DEMOS: Build demos
@@ -93,8 +85,6 @@ if (IMGUI_BUNDLE_BUILD_PYTHON)
     add_compile_definitions(IMGUI_BUNDLE_BUILD_PYTHON)
     add_compile_definitions(IMGUI_BUNDLE_PYTHON_API)
     # When building python bindings, glfw is always built as a shared library (see cmake/add_glfw.cmake)
-    set(IMGUI_BUNDLE_WITH_GLFW ON CACHE BOOL "" FORCE)
-    # When building python bindings, sdl is always built as a shared library (see cmake/add_sdl.cmake)
     set(IMGUI_BUNDLE_WITH_SDL ON CACHE BOOL "" FORCE)
 endif()
 
